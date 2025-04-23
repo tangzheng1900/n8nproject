@@ -1,0 +1,46 @@
+以下是一个用Python演示如何将文档从原始文件转换为向量的完整过程。这个示例使用了TF-IDF（词频-逆文档频率）来生成向量。
+
+### Python 代码示例
+
+```python
+import os
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# 步骤1：从目录加载文档
+def load_documents_from_directory(directory):
+    documents = []
+    for filename in os.listdir(directory):
+        if filename.endswith('.txt'):
+            with open(os.path.join(directory, filename), 'r', encoding='utf-8') as file:
+                documents.append(file.read())
+    return documents
+
+# 步骤2：使用TF-IDF将文档转换为向量
+def documents_to_vectors(documents):
+    vectorizer = TfidfVectorizer()  # 创建一个TF-IDF向量化器
+    vectors = vectorizer.fit_transform(documents)  # 将文本转换为向量
+    return vectors, vectorizer
+
+# 示例用法
+if __name__ == '__main__':
+    directory = 'path/to/documents'  # 替换为您的文档目录
+    documents = load_documents_from_directory(directory)
+    vectors, vectorizer = documents_to_vectors(documents)
+    print(f'加载了 {len(documents)} 个文档.')  
+    print(f'向量形状: {vectors.shape}')  
+    print(f'特征名称: {vectorizer.get_feature_names_out()}')
+```
+
+### 代码说明
+
+1. **加载文档**：
+   - `load_documents_from_directory`函数读取指定目录下的所有`.txt`文件，并将每个文件的内容存储在一个列表中。
+
+2. **转换为向量**：
+   - `documents_to_vectors`函数使用`TfidfVectorizer`将文档转换为TF-IDF向量。
+
+3. **示例用法**：
+   - 在主程序中，您需要指定包含文档的目录，然后加载文档并将其转换为向量。最后，程序将输出加载的文档数量、向量的形状，以及特征名称。
+
+请确保在运行代码之前将`'path/to/documents'`替换为您实际文档所在的目录路径。
