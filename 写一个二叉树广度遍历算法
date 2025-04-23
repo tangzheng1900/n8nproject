@@ -1,0 +1,26 @@
+这是一个用于二叉树广度遍历的算法，使用 JavaScript 编写：
+
+```javascript
+function breadthFirstTraversal(root) {
+    if (root === null) return [];
+
+    const result = [];
+    const queue = [root];
+
+    while (queue.length > 0) {
+        const current = queue.shift();
+        result.push(current.value);
+
+        if (current.left) {
+            queue.push(current.left);
+        }
+        if (current.right) {
+            queue.push(current.right);
+        }
+    }
+
+    return result;
+}
+```
+
+这个函数接受一个二叉树的根节点 `root`，并返回一个数组，数组中按层级顺序包含树的所有节点值。
